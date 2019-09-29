@@ -44,13 +44,16 @@ export const Item = styled.li`
         font-size: 16px;
 
     }
+    svg {
+        fill: #FFF;
+    }
     &:hover {
         background-color: rgb(29,233,182, 0.1);
         p {
             color : #1DE9B6;
         }
         svg {
-            fill : #1DE9B6;
+            fill : #1DE9B6  ;
         }
 
     }
