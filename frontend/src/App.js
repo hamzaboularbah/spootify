@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Spootify from './components'
 import dotenv from 'dotenv'
 import queryString from 'querystring'
+import { MainContext } from './store'
 dotenv.config()
 
 const App = () => {
-  const [profile, setProfile] = useState({})
+  const { profile, setProfile } = useContext(MainContext)
   useEffect(() => {
     const parsed = queryString.parse(window.location.pathname.slice(1))
     if (parsed.access_token) {
       const { access_token } = parsed
       localStorage.setItem('spootify-token', access_token)
       const options = {
-        url: "https://api.spotify.com/v1/me",
+        url: `${process.env.REACT_APP_BASE_URL}/me`,
         headers: { "Authorization": "Bearer " + access_token },
         json: true
       }
@@ -24,7 +25,9 @@ const App = () => {
   }, [])
   return (
     <div className="App">
-      {profile.id && <Spootify profile={profile} />}
+      {profile.id &&
+        <Spootify />
+      }
     </div>
   );
 }

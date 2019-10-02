@@ -2,9 +2,9 @@ import React from 'react';
 import SideBar from './SideBar'
 
 
-const Spootify = ({ profile }) => {
+const Spootify = () => {
     return (
-        <SideBar profile={profile} />
+        <SideBar />
     )
 
 

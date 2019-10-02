@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Logo from '../Icons/Logo'
 import { Container, Section, Title, ItemsList, Item } from './style'
+import { MainContext } from '../../store'
+import dotEnv from 'dotenv'
+dotEnv.config();
 
 
-const SideBar = ({ profile }) => {
-    const [playlists, setPlaylists] = useState([])
+const SideBar = () => {
+    const { profile, playlists, setPlaylists } = useContext(MainContext)
     useEffect(() => {
         const { id: user_id } = profile;
         const options = {
-            url: `https://api.spotify.com/v1/users/${user_id}/playlists`,
+            url: `${process.env.REACT_APP_BASE_URL}/users/${user_id}/playlists`,
             headers: { "Authorization": "Bearer " + localStorage.getItem('spootify-token') },
             json: true
         }
@@ -30,7 +33,7 @@ const SideBar = ({ profile }) => {
                     </Item>
                     <Item>
                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><g opacity=".7"><path d="M12.594 11.586a.41.41 0 0 0-.406.414v2.483c0 3.194-2.552 5.793-5.688 5.793-3.136 0-5.688-2.599-5.688-5.793V12a.41.41 0 0 0-.406-.414A.41.41 0 0 0 0 12v2.483c0 3.51 2.7 6.384 6.094 6.6v2.09H4.062a.41.41 0 0 0-.406.413.41.41 0 0 0 .406.414h4.875a.41.41 0 0 0 .407-.414.41.41 0 0 0-.406-.414H6.905v-2.09c3.395-.215 6.094-3.089 6.094-6.6V12a.41.41 0 0 0-.406-.414z" /><path d="M6.5 19.034c2.464 0 4.469-2.042 4.469-4.551V4.552C10.969 2.042 8.964 0 6.5 0 4.036 0 2.031 2.042 2.031 4.552v9.93c0 2.51 2.005 4.552 4.469 4.552zM2.844 4.552C2.844 2.498 4.484.828 6.5.828s3.656 1.67 3.656 3.724v9.93c0 2.054-1.64 3.725-3.656 3.725s-3.656-1.67-3.656-3.724V4.552z" /></g></svg>
-                        <p>Radio</p>
+                        <p>Radio</p>        c
                     </Item>
                 </ItemsList>
             </Section>
