@@ -10,6 +10,13 @@ const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
 const redirect_uri = process.env.REDIRECT_URI;
 
+const app = express();
+
+app
+  .use(express.static(__dirname + "/public"))
+  .use(cors())
+  .use(cookieParser());
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -28,27 +35,22 @@ const generateRandomString = length => {
 
 const stateKey = "spotify_auth_state";
 
-const app = express();
 
-app
-  .use(express.static(__dirname + "/public"))
-  .use(cors())
-  .use(cookieParser());
 
 app.get("/login", (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
-  const scope = "user-read-private user-read-email";
+  const scope = "streaming user-modify-playback-state app-remote-control user-read-playback-state user-read-currently-playing user-read-private user-read-email";
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
-      querystring.stringify({
-        response_type: "code",
-        client_id,
-        scope,
-        redirect_uri,
-        state
-      })
+    querystring.stringify({
+      response_type: "code",
+      client_id,
+      scope,
+      redirect_uri,
+      state
+    })
   );
 });
 
@@ -61,9 +63,9 @@ app.get("/callback", (req, res) => {
   if (state === null || state !== storedState) {
     res.redirect(
       "/#" +
-        querystring.stringify({
-          error: "state_mismatch"
-        })
+      querystring.stringify({
+        error: "state_mismatch"
+      })
     );
   } else {
     res.clearCookie(stateKey);
@@ -95,22 +97,22 @@ app.get("/callback", (req, res) => {
 
         // use the access token to access the Spotify Web API
         request.get(options, (error, response, body) => {
-          console.log(body);
+          //console.log(body);
         });
 
         res.redirect(
           process.env.FRONTEND_URI +
-            querystring.stringify({
-              access_token,
-              refresh_token
-            })
+          querystring.stringify({
+            access_token,
+            refresh_token
+          })
         );
       } else {
         res.redirect(
           "/#" +
-            querystring.stringify({
-              error: "invalid_token"
-            })
+          querystring.stringify({
+            error: "invalid_token"
+          })
         );
       }
     });
@@ -128,7 +130,7 @@ app.get("/refresh_token", (req, res) => {
     },
     form: {
       grant_type: "refresh_token",
-      refresh_token2º
+      refresh_token
     },
     json: true
   };
