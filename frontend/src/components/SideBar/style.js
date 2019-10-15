@@ -39,6 +39,17 @@ export const Item = styled.li`
   padding-left: 24px;
   cursor: pointer;
   transition: all 0.5s;
+  ${({ active }) =>
+    active &&
+    `
+    background: rgb(29, 233, 182, 0.1);
+      p {
+      color: #1de9b6;
+    }
+    svg {
+      fill: #1de9b6;
+    }
+  `}
   p {
     margin: 0px 0px 0px 16px;
     opacity: 0.8;
@@ -46,14 +57,5 @@ export const Item = styled.li`
   }
   svg {
     fill: #fff;
-  }
-  &:hover {
-    background-color: rgb(29, 233, 182, 0.1);
-    p {
-      color: #1de9b6;
-    }
-    svg {
-      fill: #1de9b6;
-    }
   }
 `;

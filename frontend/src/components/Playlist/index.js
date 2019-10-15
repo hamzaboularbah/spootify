@@ -1,11 +1,21 @@
 import React, { useEffect, useContext, useState } from "react";
 import Track from "../Track";
 import { MainContext } from "../../store";
+import styled from "styled-components";
+import Spinner from "../kits/Spinner";
+
+const StyleBase = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1300px;
+`;
 
 const Playlist = ({ match }) => {
   const [tracks, setTracks] = useState([]);
   const { playlistId } = match.params;
   const { Spotify } = useContext(MainContext);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const songs = [];
     const options = {
@@ -17,16 +27,22 @@ const Playlist = ({ match }) => {
       data.items.forEach(item => {
         songs.push(item.track);
       });
+      setTracks(songs);
+      setIsLoading(false);
     });
-    setTracks(songs);
   }, [Spotify, playlistId]);
-
   return (
-    <>
-      {tracks.map(track => (
-        <Track key={track.id} track={track}></Track>
-      ))}
-    </>
+    <StyleBase>
+      {!isLoading ? (
+        tracks.length > 0 ? (
+          tracks.map(track => <Track key={track.id} track={track}></Track>)
+        ) : (
+          <p>No Tracks available for this playlist...</p>
+        )
+      ) : (
+        <Spinner />
+      )}
+    </StyleBase>
   );
 };
 

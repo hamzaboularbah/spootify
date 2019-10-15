@@ -1,12 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Like = () => {
-  const [Liked, setLiked] = useState(true);
+const Like = ({ trackId }) => {
+  const [Liked, setLiked] = useState(false);
+  useEffect(() => {
+    const LikedSongs = JSON.parse(localStorage.getItem("liked-songs"));
+    if (LikedSongs && LikedSongs.includes(trackId)) setLiked(true);
+  }, [trackId]);
+
+  const handleTrackLike = () => {
+    let LikedSongs = localStorage.getItem("liked-songs");
+    if (!LikedSongs) LikedSongs = [];
+    else LikedSongs = JSON.parse(LikedSongs);
+    if (LikedSongs.includes(trackId)) {
+      localStorage.setItem(
+        "liked-songs",
+        JSON.stringify(LikedSongs.filter(id => id !== trackId))
+      );
+      setLiked(false);
+    } else {
+      LikedSongs.push(trackId);
+      localStorage.setItem("liked-songs", JSON.stringify(LikedSongs));
+      setLiked(true);
+    }
+  };
   return (
     <>
       {Liked ? (
         <svg
-          onClick={() => setLiked(!Liked)}
+          style={{ cursor: "pointer" }}
+          onClick={handleTrackLike}
           width="18"
           height="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +40,8 @@ const Like = () => {
         </svg>
       ) : (
         <svg
-          onClick={() => setLiked(!Liked)}
+          style={{ cursor: "pointer" }}
+          onClick={handleTrackLike}
           width="18"
           height="16"
           xmlns="http://www.w3.org/2000/svg"

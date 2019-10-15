@@ -6,6 +6,7 @@ export const MainContext = React.createContext({});
 const Provider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState({});
+  const [activeNavLink, setActiveNavLink] = useState(2);
   const Spotify = new SpotifyWebPlayer();
   const device_id = localStorage.getItem("_spharmony_device_id");
   Spotify.setAccessToken(localStorage.getItem("spootify-token"));
@@ -16,6 +17,8 @@ const Provider = ({ children }) => {
         setProfile,
         playlists,
         setPlaylists,
+        activeNavLink,
+        setActiveNavLink,
         device_id,
         Spotify
       }}

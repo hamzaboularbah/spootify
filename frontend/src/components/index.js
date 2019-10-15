@@ -11,6 +11,11 @@ const StyleBase = styled.div`
 const Content = styled.div`
   margin-left: 341px;
   grid-column: 2;
+  .spinner {
+    width: 50px;
+    margin: 30% auto;
+    position: relative;
+  }
 `;
 
 const Spootify = () => {
