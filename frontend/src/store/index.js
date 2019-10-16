@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import SpotifyWebPlayer from "spotify-web-api-js";
 
-export const MainContext = React.createContext({});
-
 const Provider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState({});
@@ -28,4 +26,5 @@ const Provider = ({ children }) => {
   );
 };
 
+export const MainContext = React.createContext({});
 export default Provider;
