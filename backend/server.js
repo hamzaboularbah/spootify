@@ -41,7 +41,7 @@ app.get("/login", (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
-  const scope = "streaming user-modify-playback-state app-remote-control user-read-playback-state user-read-currently-playing user-read-private user-read-email";
+  const scope = "streaming user-modify-playback-state app-remote-control user-read-playback-state user-read-currently-playing playlist-read-collaborative playlist-read-private user-read-private user-read-email";
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
     querystring.stringify({
@@ -101,7 +101,7 @@ app.get("/callback", (req, res) => {
         });
 
         res.redirect(
-          process.env.FRONTEND_URI +
+          process.env.FRONTEND_URI + "auth/callback?" +
           querystring.stringify({
             access_token,
             refresh_token

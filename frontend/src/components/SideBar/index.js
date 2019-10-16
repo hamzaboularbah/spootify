@@ -27,6 +27,7 @@ const SideBar = () => {
       .then(response => response.json())
       .then(playlists => setPlaylists(playlists));
   }, [profile, setPlaylists]);
+  console.log(playlists);
   return (
     <Container>
       <Logo width="105" height="32" />
@@ -92,7 +93,7 @@ const SideBar = () => {
             <p>Last added songs</p>
           </Item>
 
-          <Link to="/favorites">
+          <Link to="/app/favorites">
             <Item
               key={5}
               active={activeNavLink === 5}
@@ -155,7 +156,7 @@ const SideBar = () => {
             playlists.items.map((playlist, i) => (
               <Link
                 key={playlist.id}
-                to={`/playlist/${playlist.id}`}
+                to={`/app/playlist/${playlist.id}`}
                 style={{ textDecoration: "none" }}
               >
                 <Item

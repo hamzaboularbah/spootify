@@ -12,6 +12,7 @@ const StyleBase = styled.div`
 `;
 
 const Playlist = ({ match }) => {
+  console.log({ match });
   const [tracks, setTracks] = useState([]);
   const { playlistId } = match.params;
   const { Spotify } = useContext(MainContext);
@@ -19,7 +20,7 @@ const Playlist = ({ match }) => {
   useEffect(() => {
     const songs = [];
     const options = {
-      offset: 90,
+      offset: 1,
       limit: 100,
       fields: "items"
     };

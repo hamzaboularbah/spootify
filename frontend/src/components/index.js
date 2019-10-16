@@ -1,7 +1,8 @@
 import React from "react";
 import SideBar from "./SideBar";
+import Player from "../components/Player";
 import styled from "styled-components";
-import RouterView from "../router";
+import DashboardRoutes from "../router";
 
 const StyleBase = styled.div`
   display: grid;
@@ -23,8 +24,9 @@ const Spootify = () => {
     <StyleBase>
       <SideBar />
       <Content>
-        <RouterView></RouterView>
+        <DashboardRoutes></DashboardRoutes>
       </Content>
+      {/* <Player /> */}
     </StyleBase>
   );
 };

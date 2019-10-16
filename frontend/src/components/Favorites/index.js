@@ -18,10 +18,12 @@ const Favorites = () => {
 
   useEffect(() => {
     const trackIds = JSON.parse(localStorage.getItem("liked-songs"));
-    Spotify.getTracks(trackIds).then(tracks => {
-      setFavTracks(tracks.tracks);
-      setIsLoading(false);
-    });
+    if (trackIds)
+      Spotify.getTracks(trackIds).then(tracks => {
+        setFavTracks(tracks.tracks);
+        setIsLoading(false);
+      });
+    else setIsLoading(false);
   }, [Spotify]);
   return (
     <StyleBase>

@@ -1,6 +1,6 @@
 import "./index.css";
 import React from "react";
-import App from "./App";
+import Routes from "./router/appRoutes";
 import Store from "./store";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 ReactDOM.render(
   <Router>
     <Store>
-      <App />
+      <Routes />
     </Store>
   </Router>,
 
