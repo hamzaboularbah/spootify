@@ -1,15 +1,21 @@
 import React from "react";
-import styled from "styled-components";
-
-const StyleBase = styled.div`
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  height: 80px;
-  background-color: red;
-`;
+import {
+  StyleBase,
+  SongPlayer,
+  SongDetails,
+  PlayerBackground,
+  SongPlayerContent
+} from "./style";
 
 const Player = () => {
-  return <StyleBase></StyleBase>;
+  return (
+    <StyleBase>
+      <SongDetails />
+      <SongPlayer>
+        <PlayerBackground />
+        <SongPlayerContent></SongPlayerContent>
+      </SongPlayer>
+    </StyleBase>
+  );
 };
 export default Player;

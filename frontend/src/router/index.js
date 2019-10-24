@@ -1,15 +1,17 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Playlist from "../components/Playlist";
-import Favorites from "../components/Favorites";
+import Home from "../components/Home";
+import VerifyToken from "../components/VerifyToken";
+import Dashboard from "../components/dashboard";
 
-let DashboardRoutes = props => {
+const MainRoutes = props => {
   return (
     <Switch>
-      <Route path="/app/playlist/:playlistId" component={Playlist} />
-      <Route path="/app/favorites" component={Favorites} />
+      <Route exact path="/" component={Home} />
+      <Route path="/auth/callback" component={VerifyToken} />
+      <Route path="/app" component={Dashboard} />
     </Switch>
   );
 };
 
-export default DashboardRoutes;
+export default MainRoutes;

@@ -17,13 +17,17 @@ const Favorites = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isSubscribed = true;
     const trackIds = JSON.parse(localStorage.getItem("liked-songs"));
-    if (trackIds)
+    if (trackIds.length > 0) {
       Spotify.getTracks(trackIds).then(tracks => {
-        setFavTracks(tracks.tracks);
-        setIsLoading(false);
+        if (isSubscribed) {
+          setFavTracks(tracks.tracks);
+          setIsLoading(false);
+        }
       });
-    else setIsLoading(false);
+    } else setIsLoading(false);
+    return () => (isSubscribed = false);
   }, [Spotify]);
   return (
     <StyleBase>
@@ -31,7 +35,13 @@ const Favorites = () => {
         favTracks.length > 0 ? (
           favTracks.map(track => <Track key={track.id} track={track}></Track>)
         ) : (
-          <p>You have no favorite track for now 😞, get a taste 😏 </p>
+          <p>
+            You have no favorite track for now{" "}
+            <span aria-label="" role="img">
+              😞
+            </span>
+            , get a taste 😏{" "}
+          </p>
         )
       ) : (
         <Spinner />

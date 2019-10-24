@@ -12,25 +12,28 @@ const StyleBase = styled.div`
 `;
 
 const Playlist = ({ match }) => {
-  console.log({ match });
   const [tracks, setTracks] = useState([]);
   const { playlistId } = match.params;
   const { Spotify } = useContext(MainContext);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    let isSubscribed = true;
     const songs = [];
     const options = {
       offset: 1,
       limit: 100,
       fields: "items"
     };
-    Spotify.getPlaylistTracks(playlistId, options).then(data => {
-      data.items.forEach(item => {
-        songs.push(item.track);
+    if (isSubscribed) {
+      Spotify.getPlaylistTracks(playlistId, options).then(data => {
+        data.items.forEach(item => {
+          songs.push(item.track);
+        });
+        setTracks(songs);
+        setIsLoading(false);
       });
-      setTracks(songs);
-      setIsLoading(false);
-    });
+    }
+    return () => (isSubscribed = false);
   }, [Spotify, playlistId]);
   return (
     <StyleBase>

@@ -3,7 +3,7 @@ import SpotifyWebPlayer from "spotify-web-api-js";
 
 const Provider = ({ children }) => {
   const [profile, setProfile] = useState({});
-  const [playlists, setPlaylists] = useState({});
+  const [playlists, setPlaylists] = useState([]);
   const [activeNavLink, setActiveNavLink] = useState(2);
   const Spotify = new SpotifyWebPlayer();
   const device_id = localStorage.getItem("_spharmony_device_id");

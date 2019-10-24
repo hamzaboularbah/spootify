@@ -3,8 +3,6 @@ import Logo from "../Icons/Logo";
 import { Link } from "react-router-dom";
 import { Container, Section, Title, ItemsList, Item } from "./style";
 import { MainContext } from "../../store";
-import dotEnv from "dotenv";
-dotEnv.config();
 
 const SideBar = () => {
   const {
@@ -12,22 +10,18 @@ const SideBar = () => {
     playlists,
     setPlaylists,
     setActiveNavLink,
-    activeNavLink
+    activeNavLink,
+    Spotify
   } = useContext(MainContext);
+
   useEffect(() => {
     const { id: user_id } = profile;
-    const options = {
-      url: `${process.env.REACT_APP_BASE_URL}/users/${user_id}/playlists`,
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("spootify-token")
-      },
-      json: true
-    };
-    fetch(options.url, { headers: options.headers })
-      .then(response => response.json())
-      .then(playlists => setPlaylists(playlists));
-  }, [profile, setPlaylists]);
-  console.log(playlists);
+    Spotify.getUserPlaylists(user_id).then(data => {
+      setPlaylists(data.items);
+    });
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Container>
       <Logo width="105" height="32" />
@@ -152,8 +146,8 @@ const SideBar = () => {
       <Section>
         <Title>Playlists</Title>
         <ItemsList>
-          {playlists.items &&
-            playlists.items.map((playlist, i) => (
+          {playlists.length > 0 &&
+            playlists.map((playlist, i) => (
               <Link
                 key={playlist.id}
                 to={`/app/playlist/${playlist.id}`}
