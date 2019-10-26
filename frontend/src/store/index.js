@@ -5,6 +5,7 @@ const Provider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState([]);
   const [activeNavLink, setActiveNavLink] = useState(2);
+  const [currentTrack, setCurrentTrack] = useState({});
   const Spotify = new SpotifyWebPlayer();
   const device_id = localStorage.getItem("_spharmony_device_id");
   Spotify.setAccessToken(localStorage.getItem("spootify-token"));
@@ -17,6 +18,8 @@ const Provider = ({ children }) => {
         setPlaylists,
         activeNavLink,
         setActiveNavLink,
+        currentTrack,
+        setCurrentTrack,
         device_id,
         Spotify
       }}
