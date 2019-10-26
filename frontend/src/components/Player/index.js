@@ -11,6 +11,7 @@ import {
 
 const Player = () => {
   const { Spotify, currentTrack, setCurrentTrack } = useContext(MainContext);
+
   useEffect(_ => {
     Spotify.getMyCurrentPlayingTrack().then(track => {
       setCurrentTrack(track.item);

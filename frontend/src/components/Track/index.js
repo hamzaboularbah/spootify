@@ -8,7 +8,7 @@ const Track = ({ track, isInPlayer = false }) => {
   const fullTrack = (
     <TrackCard>
       <TrackCardContent>
-        {!isInPlayer ? <Play uri={track.uri}></Play> : ""}
+        {!isInPlayer ? <Play track={track}></Play> : ""}
         <TrackCover>
           <img
             src={track.album.images[track.album.images.length - 1].url}
