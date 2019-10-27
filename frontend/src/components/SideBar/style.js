@@ -39,6 +39,14 @@ export const Item = styled.li`
   padding-left: 24px;
   cursor: pointer;
   transition: all 0.5s;
+  p {
+    margin: 0px 0px 0px 16px;
+    opacity: 0.8;
+    font-size: 16px;
+  }
+  svg {
+    fill: #fff;
+  }
   ${({ active }) =>
     active &&
     `
@@ -50,12 +58,4 @@ export const Item = styled.li`
       fill: #1de9b6;
     }
   `}
-  p {
-    margin: 0px 0px 0px 16px;
-    opacity: 0.8;
-    font-size: 16px;
-  }
-  svg {
-    fill: #fff;
-  }
 `;

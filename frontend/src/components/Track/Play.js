@@ -2,26 +2,19 @@ import React, { useState, useContext, useEffect } from "react";
 import { MainContext } from "../../store";
 
 const Play = ({ track }) => {
-  const { Spotify, device_id, currentTrack, setCurrentTrack } = useContext(
-    MainContext
-  );
-  const [isPlaying, setIsPlaying] = useState(false);
+  const {
+    Spotify,
+    device_id,
+    currentTrack,
+    setCurrentTrack,
+    isPlaying,
+    setIsPlaying,
+    handlePlay
+  } = useContext(MainContext);
 
-  const handlePlay = () => {
-    !isPlaying
-      ? Spotify.play({
-          device_id,
-          uris: [track.uri]
-        }).then(_ => {
-          setCurrentTrack(track);
-        })
-      : Spotify.pause({ device_id });
-
-    setIsPlaying(!isPlaying);
-  };
   const play = (
     <svg
-      onClick={handlePlay}
+      onClick={() => handlePlay(track)}
       width="24"
       height="24"
       xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +28,7 @@ const Play = ({ track }) => {
   );
   const pause = (
     <svg
-      onClick={handlePlay}
+      onClick={() => handlePlay(track)}
       width="24"
       height="24"
       xmlns="http://www.w3.org/2000/svg"
