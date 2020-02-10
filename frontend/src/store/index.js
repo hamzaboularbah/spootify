@@ -3,7 +3,6 @@ import SpotifyWebPlayer from "spotify-web-api-js";
 
 const Provider = ({ children }) => {
   const [profile, setProfile] = useState({});
-  const [playbackState, setPlaybackState] = useState({});
   const [playlists, setPlaylists] = useState([]);
   const [activeNavLink, setActiveNavLink] = useState(2);
   const [currentTrack, setCurrentTrack] = useState({});
@@ -12,25 +11,22 @@ const Provider = ({ children }) => {
   const device_id = localStorage.getItem("_spharmony_device_id");
   Spotify.setAccessToken(localStorage.getItem("spootify-token"));
 
-  const handlePlay = track => {
+  const handlePlay = (track = null) => {
     !isPlaying
       ? Spotify.play({
           device_id,
           uris: [track.uri || currentTrack.uri]
         }).then(_ => {
           setCurrentTrack(track.uri ? track : currentTrack);
+          setIsPlaying(!isPlaying);
         })
-      : Spotify.pause({ device_id });
-
-    setIsPlaying(!isPlaying);
+      : Spotify.pause({ device_id }).then(_ => setIsPlaying(!isPlaying));
   };
   return (
     <MainContext.Provider
       value={{
         profile,
         setProfile,
-        playbackState,
-        setPlaybackState,
         playlists,
         setPlaylists,
         activeNavLink,

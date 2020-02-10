@@ -52,7 +52,7 @@ export const Previous = styled.div`
 `;
 export const Play = styled.div`
   ${sharedStyle}
-  width: 48px;
+  min-width: 48px;
   height: 48px;
   background-color: #1de9b6;
   border-radius: 50%;
@@ -66,9 +66,21 @@ export const Repeat = styled.div`
   ${sharedStyle}
   width: 24px;
   height: 24px;
+  margin-right: 68px;
 `;
-export const CurrentPlayTime = styled.div``;
-export const ProgressBar = styled.div``;
+export const CurrentPlayTime = styled.div`
+  color: #51596d;
+  font-size: 14px;
+  line-height: 16px;
+  margin-right: 12px;
+`;
+export const ProgressBar = styled.div`
+  width: 100%;
+  opacity: 0.1;
+  max-width: 312px;
+  border-radius: 20px;
+  border: 2px #51596d solid;
+`;
 export const Duration = styled.div``;
 export const Volume = styled.div`
   ${sharedStyle}

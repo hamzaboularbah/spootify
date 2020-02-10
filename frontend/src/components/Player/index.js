@@ -118,7 +118,7 @@ const Player = () => {
               </g>
             </svg>
           </Repeat>
-          <CurrentPlayTime></CurrentPlayTime>
+          <CurrentPlayTime>0:45</CurrentPlayTime>
           <ProgressBar></ProgressBar>
           <Duration></Duration>
           <Volume></Volume>

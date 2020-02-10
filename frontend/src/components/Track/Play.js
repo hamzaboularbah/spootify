@@ -1,19 +1,26 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { MainContext } from "../../store";
+import styled from "styled-components";
 
 const Play = ({ track }) => {
-  const {
-    Spotify,
-    device_id,
-    currentTrack,
-    setCurrentTrack,
-    isPlaying,
-    setIsPlaying,
-    handlePlay
-  } = useContext(MainContext);
-
+  const { currentTrack, isPlaying, handlePlay } = useContext(MainContext);
+  const SVG = styled.svg`
+    animation: ${props =>
+      !props.loading && track && currentTrack && currentTrack.id === track.id
+        ? "crescendo 0.3s alternate infinite ease-in"
+        : ""};
+    @keyframes crescendo {
+      0% {
+        transform: scale(0.8);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  `;
   const play = (
-    <svg
+    <SVG
+      loading={isPlaying}
       onClick={() => handlePlay(track)}
       width="24"
       height="24"
@@ -24,7 +31,7 @@ const Play = ({ track }) => {
         fill="#51596D"
         opacity=".6"
       />
-    </svg>
+    </SVG>
   );
   const pause = (
     <svg
