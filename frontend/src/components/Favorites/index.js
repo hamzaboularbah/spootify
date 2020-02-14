@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useState } from "react";
-import { MainContext } from "../../store";
-import Track from "../Track";
-import styled from "styled-components";
-import Spinner from "../kits/Spinner";
+import React, { useEffect, useContext, useState } from 'react';
+import { MainContext } from '../../store';
+import Track from '../Track';
+import styled from 'styled-components';
+import Spinner from '../kits/Spinner';
 
 const StyleBase = styled.div`
   display: flex;
@@ -18,8 +18,8 @@ const Favorites = () => {
 
   useEffect(() => {
     let isSubscribed = true;
-    const trackIds = JSON.parse(localStorage.getItem("liked-songs"));
-    if (trackIds.length > 0) {
+    const trackIds = JSON.parse(localStorage.getItem('liked-songs'));
+    if (trackIds && trackIds.length > 0) {
       Spotify.getTracks(trackIds).then(tracks => {
         if (isSubscribed) {
           setFavTracks(tracks.tracks);
@@ -36,11 +36,11 @@ const Favorites = () => {
           favTracks.map(track => <Track key={track.id} track={track}></Track>)
         ) : (
           <p>
-            You have no favorite track for now{" "}
-            <span aria-label="" role="img">
+            You have no favorite track for now{' '}
+            <span aria-label='' role='img'>
               😞
             </span>
-            , get a taste 😏{" "}
+            , get a taste 😏{' '}
           </p>
         )
       ) : (

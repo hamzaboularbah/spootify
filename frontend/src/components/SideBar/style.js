@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   margin: 0;
@@ -36,7 +36,7 @@ export const Item = styled.li`
   align-items: center;
   display: flex;
   color: white;
-  padding-left: 24px;
+  padding: 2px 24px;
   cursor: pointer;
   transition: all 0.5s;
   p {
@@ -46,6 +46,8 @@ export const Item = styled.li`
   }
   svg {
     fill: #fff;
+    max-width: 24px;
+    width: 100%;
   }
   ${({ active }) =>
     active &&
