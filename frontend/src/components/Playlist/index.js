@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useState } from "react";
-import Track from "../Track";
-import { MainContext } from "../../store";
-import styled from "styled-components";
-import Spinner from "../kits/Spinner";
+import React, { useEffect, useContext, useState } from 'react';
+import Track from '../Track';
+import { MainContext } from '../../store';
+import styled from 'styled-components';
+import Spinner from '../kits/Spinner';
 
 const StyleBase = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const Playlist = ({ match }) => {
     const options = {
       offset: 1,
       limit: 100,
-      fields: "items"
+      fields: 'items',
     };
     if (isSubscribed) {
       Spotify.getPlaylistTracks(playlistId, options).then(data => {
@@ -41,7 +41,7 @@ const Playlist = ({ match }) => {
         tracks.length > 0 ? (
           tracks.map(track => <Track key={track.id} track={track}></Track>)
         ) : (
-          <p>No Tracks available for this playlist...</p>
+          <p>No Tracks available in this playlist ...</p>
         )
       ) : (
         <Spinner />

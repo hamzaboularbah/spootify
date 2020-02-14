@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const TrackCard = styled.div`
-  width: 420px;
+  width: ${props => !(props.isInPlayer ? '420px' : 'auto')};
   border-radius: 8px;
   background-color: #fff;
   margin: 10px 0px 10px 10px;

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import Track from '../Track';
 import { MainContext } from '../../store';
+import { millisToMinutesAndSeconds } from '../../utils';
 import {
   StyleBase,
   SongPlayer,
@@ -13,8 +14,7 @@ import {
   Next,
   Repeat,
   ProgressBar,
-  CurrentPlayTime,
-  Duration,
+  Timing,
   Volume,
   VolumeProgress,
 } from './style';
@@ -108,9 +108,13 @@ const Player = () => {
               </g>
             </svg>
           </Repeat>
-          <CurrentPlayTime>0:45</CurrentPlayTime>
+          <Timing>0:45</Timing>
           <ProgressBar></ProgressBar>
-          <Duration></Duration>
+          <Timing>
+            {currentTrack && currentTrack.id
+              ? millisToMinutesAndSeconds(currentTrack.duration_ms)
+              : '0:00'}
+          </Timing>
           <Volume></Volume>
           <VolumeProgress></VolumeProgress>
         </PlayerControls>

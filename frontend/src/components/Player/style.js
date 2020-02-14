@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 const sharedStyle = css`
   display: flex;
   align-items: center;
@@ -13,6 +13,7 @@ export const StyleBase = styled.div`
   bottom: 0;
   display: flex;
   height: 80px;
+  background-color: #fff;
 `;
 
 export const SongPlayer = styled.div`
@@ -21,12 +22,12 @@ export const SongPlayer = styled.div`
 `;
 
 export const PlayerBackground = styled.div`
-  position: absolute;
   background-color: #fff;
-  filter: blur(8px);
-  opacity: 0.85;
-  width: 100%;
-  height: 100%;
+  /* position: absolute;
+    filter: blur(8px);
+    opacity: 0.85;
+    width: 100%;
+    height: 100%; */
 `;
 export const PlayerControls = styled.div`
   position: relative;
@@ -68,20 +69,18 @@ export const Repeat = styled.div`
   height: 24px;
   margin-right: 68px;
 `;
-export const CurrentPlayTime = styled.div`
+export const Timing = styled.div`
   color: #51596d;
   font-size: 14px;
   line-height: 16px;
-  margin-right: 12px;
+  margin: 0px 12px;
 `;
 export const ProgressBar = styled.div`
-  width: 100%;
+  width: 312px;
   opacity: 0.1;
-  max-width: 312px;
   border-radius: 20px;
   border: 2px #51596d solid;
 `;
-export const Duration = styled.div``;
 export const Volume = styled.div`
   ${sharedStyle}
   width: 24px;

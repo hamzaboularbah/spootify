@@ -12,15 +12,17 @@ const Provider = ({ children }) => {
   Spotify.setAccessToken(localStorage.getItem('spootify-token'));
 
   const handlePlay = (track = null) => {
-    isPlaying && track.id === currentTrack.id
-      ? Spotify.pause({ device_id }).then(_ => setIsPlaying(false))
-      : Spotify.play({
-          device_id,
-          uris: [track.uri || currentTrack.uri],
-        }).then(_ => {
-          setCurrentTrack(track.uri ? track : currentTrack);
-          setIsPlaying(true);
-        });
+    if (track) {
+      isPlaying && track.id === currentTrack.id
+        ? Spotify.pause({ device_id }).then(_ => setIsPlaying(false))
+        : Spotify.play({
+            device_id,
+            uris: [track.uri || currentTrack.uri],
+          }).then(_ => {
+            setCurrentTrack(track.uri ? track : currentTrack);
+            setIsPlaying(true);
+          });
+    }
   };
   return (
     <MainContext.Provider

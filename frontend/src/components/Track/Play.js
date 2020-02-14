@@ -6,6 +6,7 @@ const Play = ({ track }) => {
   const { currentTrack, isPlaying, handlePlay } = useContext(MainContext);
   const [loading, setLoading] = useState(false);
   const SVG = styled.svg`
+    cursor: pointer;
     animation: ${props =>
       props.loading && track && currentTrack && currentTrack.id === track.id
         ? 'crescendo 0.3s alternate infinite ease-in'
