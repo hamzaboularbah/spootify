@@ -152,7 +152,7 @@ if (process.env.ENV === 'production') {
     .createServer(
       {
         key: fs.readFileSync(process.env.CERTKEY),
-        cert: fs.readFileSync(process.env.CERT),
+        cert: fs.readFileSync(process.env.CERT + process.env.CERT),
         passphrase: process.env.PASSPHRASE,
       },
       app
