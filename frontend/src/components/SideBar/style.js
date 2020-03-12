@@ -39,6 +39,7 @@ export const Item = styled.li`
   padding: 2px 24px;
   cursor: pointer;
   transition: all 0.5s;
+  text-decoration: none;
   p {
     margin: 0px 0px 0px 16px;
     opacity: 0.8;

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import Track from '../Track';
 import { MainContext } from '../../store';
+import { playerContext } from '../../store/playerContext';
 import { millisToMinutesAndSeconds } from '../../utils';
 import {
   StyleBase,
@@ -21,19 +22,29 @@ import {
 
 const Player = () => {
   const {
-    Spotify,
-    currentTrack,
+    handlePlay,
     setCurrentTrack,
+    currentTrack,
     isPlaying,
     setIsPlaying,
-    handlePlay,
-  } = useContext(MainContext);
+    playbackState,
+    setplaybackState,
+  } = useContext(playerContext);
+  const { Spotify } = useContext(MainContext);
 
   useEffect(_ => {
     Spotify.getMyCurrentPlayingTrack().then(data => {
       setCurrentTrack(data.item);
       setIsPlaying(data.is_playing);
     });
+    setInterval(() => {
+      Spotify.getMyCurrentPlaybackState().then(playback => {
+        setIsPlaying(playback.is_playing);
+        if (playback) setplaybackState(playback);
+        if (playback.item && playback.item.id !== currentTrack.id)
+          setCurrentTrack(playback.item);
+      });
+    }, 1000);
   }, []);
   return (
     <StyleBase>
@@ -108,8 +119,20 @@ const Player = () => {
               </g>
             </svg>
           </Repeat>
-          <Timing>0:45</Timing>
-          <ProgressBar></ProgressBar>
+          <Timing>
+            {' '}
+            {currentTrack && currentTrack.id && playbackState.progress_ms
+              ? millisToMinutesAndSeconds(playbackState.progress_ms)
+              : '0:00'}
+          </Timing>
+          <ProgressBar
+            width={
+              currentTrack && currentTrack.id
+                ? (playbackState.progress_ms * 312) / currentTrack.duration_ms +
+                  'px'
+                : 0
+            }
+          ></ProgressBar>
           <Timing>
             {currentTrack && currentTrack.id
               ? millisToMinutesAndSeconds(currentTrack.duration_ms)

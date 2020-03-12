@@ -77,9 +77,22 @@ export const Timing = styled.div`
 `;
 export const ProgressBar = styled.div`
   width: 312px;
-  opacity: 0.1;
   border-radius: 20px;
-  border: 2px #51596d solid;
+  border: 2px rgba(81, 89, 109, 0.1) solid;
+  position: relative;
+  z-index: 0;
+  &:after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    opacity: 1;
+    z-index: 2;
+    height: 4px;
+    width: ${props => props.width};
+    border-radius: 20px;
+    background-color: rgba(29, 233, 182, 1);
+  }
 `;
 export const Volume = styled.div`
   ${sharedStyle}

@@ -3,6 +3,7 @@ import Track from '../Track';
 import { MainContext } from '../../store';
 import styled from 'styled-components';
 import Spinner from '../kits/Spinner';
+import { findWithAttr } from '../../utils';
 
 const StyleBase = styled.div`
   display: flex;
@@ -14,17 +15,16 @@ const StyleBase = styled.div`
 const Playlist = ({ match }) => {
   const [tracks, setTracks] = useState([]);
   const { playlistId } = match.params;
-  const { Spotify } = useContext(MainContext);
+  const { Spotify, setActiveNavLink, playlists } = useContext(MainContext);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    let isSubscribed = true;
     const songs = [];
     const options = {
       offset: 1,
       limit: 100,
       fields: 'items',
     };
-    if (isSubscribed) {
+    if (playlistId) {
       Spotify.getPlaylistTracks(playlistId, options).then(data => {
         data.items.forEach(item => {
           songs.push(item.track);
@@ -32,9 +32,15 @@ const Playlist = ({ match }) => {
         setTracks(songs);
         setIsLoading(false);
       });
+      // setting the active link for the navbar
+      setActiveNavLink(
+        9 + findWithAttr(playlists, 'id', playlistId) >= 9
+          ? 9 + findWithAttr(playlists, 'id', playlistId)
+          : null
+      );
     }
-    return () => (isSubscribed = false);
   }, [Spotify, playlistId]);
+
   return (
     <StyleBase>
       {!isLoading ? (

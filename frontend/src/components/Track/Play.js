@@ -1,28 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { MainContext } from '../../store';
+import { playerContext } from '../../store/playerContext';
 import styled from 'styled-components';
 
 const Play = ({ track }) => {
-  const { currentTrack, isPlaying, handlePlay } = useContext(MainContext);
-  const [loading, setLoading] = useState(false);
+  const { handlePlay, currentTrack, isPlaying } = useContext(playerContext);
   const SVG = styled.svg`
     cursor: pointer;
-    animation: ${props =>
-      props.loading && track && currentTrack && currentTrack.id === track.id
-        ? 'crescendo 0.3s alternate infinite ease-in'
-        : ''};
-    @keyframes crescendo {
-      0% {
-        transform: scale(0.8);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
   `;
   const play = (
     <SVG
-      loading={loading}
       onClick={() => {
         handlePlay(track);
       }}

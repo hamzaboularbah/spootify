@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 export const TrackCard = styled.div`
-  width: ${props => !(props.isInPlayer ? '420px' : 'auto')};
+  max-width: 420px;
+  box-shadow: ${props =>
+    props.isInPlayer ? 'none' : '0px 2px 4px rgba(0,0,0,0.18)'};
   border-radius: 8px;
   background-color: #fff;
   margin: 10px 0px 10px 10px;

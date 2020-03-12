@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
 import SpotifyWebPlayer from 'spotify-web-api-js';
 
-const Provider = ({ children }) => {
+const MainContextProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState([]);
-  const [activeNavLink, setActiveNavLink] = useState(2);
-  const [currentTrack, setCurrentTrack] = useState({});
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeNavLink, setActiveNavLink] = useState();
   const Spotify = new SpotifyWebPlayer();
   const device_id = localStorage.getItem('_spharmony_device_id');
   Spotify.setAccessToken(localStorage.getItem('spootify-token'));
 
-  const handlePlay = (track = null) => {
-    if (track) {
-      isPlaying && track.id === currentTrack.id
-        ? Spotify.pause({ device_id }).then(_ => setIsPlaying(false))
-        : Spotify.play({
-            device_id,
-            uris: [track.uri || currentTrack.uri],
-          }).then(_ => {
-            setCurrentTrack(track.uri ? track : currentTrack);
-            setIsPlaying(true);
-          });
-    }
-  };
   return (
     <MainContext.Provider
       value={{
@@ -33,11 +18,6 @@ const Provider = ({ children }) => {
         setPlaylists,
         activeNavLink,
         setActiveNavLink,
-        currentTrack,
-        setCurrentTrack,
-        isPlaying,
-        setIsPlaying,
-        handlePlay,
         device_id,
         Spotify,
       }}
@@ -48,4 +28,4 @@ const Provider = ({ children }) => {
 };
 
 export const MainContext = React.createContext({});
-export default Provider;
+export default MainContextProvider;
