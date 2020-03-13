@@ -8,8 +8,11 @@ import { findWithAttr } from '../../utils';
 const StyleBase = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   max-width: 1300px;
+  padding-bottom: 80px;
+  @media (max-width: 1600px) {
+    justify-content: space-around;
+  }
 `;
 
 const Playlist = ({ match }) => {
@@ -20,7 +23,7 @@ const Playlist = ({ match }) => {
   useEffect(() => {
     const songs = [];
     const options = {
-      offset: 1,
+      offset: 100,
       limit: 100,
       fields: 'items',
     };

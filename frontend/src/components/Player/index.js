@@ -23,6 +23,11 @@ import {
 const Player = () => {
   const {
     handlePlay,
+    handleNext,
+    handlePrev,
+    handleRepeat,
+    handleShuffle,
+    updateCurrentTrack,
     setCurrentTrack,
     currentTrack,
     isPlaying,
@@ -33,10 +38,7 @@ const Player = () => {
   const { Spotify } = useContext(MainContext);
 
   useEffect(_ => {
-    Spotify.getMyCurrentPlayingTrack().then(data => {
-      setCurrentTrack(data.item);
-      setIsPlaying(data.is_playing);
-    });
+    updateCurrentTrack();
     setInterval(() => {
       Spotify.getMyCurrentPlaybackState().then(playback => {
         setIsPlaying(playback.is_playing);
@@ -58,9 +60,9 @@ const Player = () => {
       <SongPlayer>
         <PlayerBackground />
         <PlayerControls>
-          <Shuffle>
+          <Shuffle onClick={handleShuffle}>
             <svg
-              fill='#51596D'
+              fill={playbackState.shuffle_state ? '#1de9b6' : '#51596D'}
               width='20'
               height='17'
               xmlns='http://www.w3.org/2000/svg'
@@ -71,7 +73,7 @@ const Player = () => {
               </g>
             </svg>
           </Shuffle>
-          <Previous>
+          <Previous onClick={handlePrev}>
             <svg width='20' height='16' xmlns='http://www.w3.org/2000/svg'>
               <g fill='#51596D'>
                 <path d='M8.253.313A1.376 1.376 0 006.76.61L.541 6.633a1.754 1.754 0 00.012 2.545l6.25 6.025c.404.389.919.506 1.448.296.528-.21.78-.705.78-1.253V1.566c0-.548-.248-1.044-.778-1.253zM19.077.267a1.414 1.414 0 00-1.516.297L11.33 6.588c-.73.703-.723 1.84.006 2.545l6.247 6.023c.404.39.964.507 1.493.297.528-.21.825-.704.825-1.254V1.521c0-.55-.295-1.044-.824-1.254z' />
@@ -94,9 +96,9 @@ const Player = () => {
               </svg>
             )}
           </Play>
-          <Next>
+          <Next onClick={handleNext}>
             <svg
-              fill='#51596D'
+              fill='#t51596D'
               transform='rotate(180)'
               width='20'
               height='16'
@@ -107,9 +109,11 @@ const Player = () => {
               </g>
             </svg>
           </Next>
-          <Repeat>
+          <Repeat onClick={handleRepeat}>
             <svg
-              fill='#51596D'
+              fill={
+                playbackState.repeat_state === 'off' ? '#51596D' : '#1de9b6'
+              }
               width='20'
               height='20'
               xmlns='http://www.w3.org/2000/svg'
