@@ -9,6 +9,7 @@ const StyleBase = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-width: 1300px;
+  justify-content: center;
   padding-bottom: 80px;
   @media (max-width: 1600px) {
     justify-content: space-around;
